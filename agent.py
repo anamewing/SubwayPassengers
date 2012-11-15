@@ -5,13 +5,14 @@ def comp_norm (x,y) : return math.sqrt( x**2 + y**2 )
 
 class agent():
 	def __init__(self, radius , velocity, threshold,x,y,environ):
-		self.state = 0 # 0 = outside, normal 1 = inside 1, normal 2 = inside 2, normal 3= bumped
+		self.state = 0 # 0 = outside1, 1=outside2, normal 2 = inside 1, normal 3 = inside 2, normal 4= bumped
 		self.r = radius
 		self.v = velocity # list, length=length(state)
 		self.t = threshold
 		self.f = [0.0,0.0] # force
 		self.p = [x,y]
 		self.e = environ
+		self.e.a.append(self)
 
 	def distance(self,agent):
 		return  comp_norm(self.p[0]-agent.p[0],self.p[1]-agent.p[1])
@@ -21,7 +22,7 @@ class agent():
 		adjacent = self.e.get_adjacent(self.p) # get_adjacent method return a list of agent
 		for a in adjacent:
 			if self.distance(a) < 2*self.r:
-				self.state = 3
+				self.state = 4
 
 	def force(self,agent):
 		d=distance(self,agent)
@@ -32,7 +33,7 @@ class agent():
 		#TODO force by door
 
 	def move(self) :
-		if self.state == 3 : return
+		if self.state == 4 : return
 		map( force, self.e.get_force(self.state) ) 
 		fnorm = comp_norm(self.f[0],self.f[1])
 		if fnorm > self.t :
