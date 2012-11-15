@@ -5,7 +5,7 @@ def comp_norm (x,y) : return math.sqrt( x**2 + y**2 )
 
 class agent():
 	def __init__(self, radius , velocity, threshold,x,y,environ):
-		self.state = 0 # 0 = outside1, 1=outside2, normal 2 = inside 1, normal 3 = inside 2, normal 4= bumped
+		self.state = 0 # 0 = outside1, 1 = outside2, 2 = inside 1, 3 = inside 2, 4= bumped
 		self.r = radius
 		self.v = velocity # list, length=length(state)
 		self.t = threshold
