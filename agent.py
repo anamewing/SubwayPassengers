@@ -7,7 +7,7 @@ class agent():
 	def __init__(self, radius , velocity, threshold,x,y,environ):
 		self.state = 0 # 0 = outside, normal 1 = inside 1, normal 2 = inside 2, normal 3= bumped
 		self.r = radius
-		self.v = velocity
+		self.v = velocity # list, length=length(state)
 		self.t = threshold
 		self.f = [0.0,0.0] # force
 		self.p = [x,y]
@@ -27,12 +27,13 @@ class agent():
 		d=distance(self,agent)
 		if d ==0 : return
 		norm = self.e.get_coefficient() / d
-		self.f[0] += ( (self.p[0]-agent.p[0])/d ) * norm
+		self.f[0] += ( (self.p[0]-agent.p[0])/d ) * norm # in fact as d^-2
 		self.f[1] += ( (self.p[1]-agent.p[1])/d ) * norm
+		#TODO force by door
 
 	def move(self) :
 		if self.state == 3 : return
-		map( force, self.e.get_force(self.state) )
+		map( force, self.e.get_force(self.state) ) 
 		fnorm = comp_norm(self.f[0],self.f[1])
 		if fnorm > self.t :
 			deltaX = (f[0]/fnorm) * self.v[self.state]
