@@ -1,6 +1,6 @@
 from __future__ import division
 import math
-
+import random
 
 
 def comp_norm (x,y) : return math.sqrt( x**2 + y**2 )
@@ -32,6 +32,10 @@ class agent():
 	def force(self,agent):
 		if self.udid == agent.udid : return
 		d=self.distance(agent)
+		if d==0:
+			self.p[0]+=1e-8*random.random()
+			self.p[1]+=1e-8*random.random()
+			d=self.distance(agent)
 		norm = self.e.get_coefficient() / d
 		self.f[0] += ( (self.p[0]-agent.p[0])/d ) * norm 
 		self.f[1] += ( (self.p[1]-agent.p[1])/d ) * norm
@@ -54,7 +58,7 @@ class agent():
 			deltaX = (self.f[0]/self.t)*self.v[self.state]
 			deltaY = (self.f[1]/self.t)*self.v[self.state]
 		self.p = self.e.boundary( self.p, (deltaX,deltaY),self.state )
-		self.stateChange()
+		#self.stateChange()
 
 	def doorforce(self):
 		if self.state>=2:return
