@@ -29,8 +29,9 @@ class environment:
 			elif position[1]<=self.tY:
 				if (position[0]>=self.dX-self.dW/2.0)and(position[0]<=self.dX+self.dW/2.0):
 					return 2
-				elif (position[0]<=self.cL)or(position[0]>=self.cR):
+				elif (position[0]>=self.cL)or(position[0]<=self.cR):
 					return 3
+			print position
 			exit('!!!!!position not correct')
 
 	def get_force(self,state):

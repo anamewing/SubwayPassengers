@@ -42,15 +42,13 @@ class agent():
 			return
 		map( self.force, self.e.get_force(self.state) ) 
 		self.doorforce()
-		self.f[0] = self.f[0]*self.v[self.state]
-		self.f[1] = self.f[1]*self.v[self.state]
 		fnorm = comp_norm(self.f[0],self.f[1])
 		if fnorm > self.t :
-			deltaX = (self.f[0]/fnorm)
-			deltaY = (self.f[1]/fnorm)
+			deltaX = (self.f[0]/fnorm)*self.v[self.state]
+			deltaY = (self.f[1]/fnorm)*self.v[self.state]
 		else :
-			deltaX = (self.f[0]/self.t)
-			deltaY = (self.f[1]/self.t)
+			deltaX = (self.f[0]/self.t)*self.v[self.state]
+			deltaY = (self.f[1]/self.t)*self.v[self.state]
 		self.p = self.e.boundary( self.p, (deltaX,deltaY),self.state )
 		self.stateChange()
 
