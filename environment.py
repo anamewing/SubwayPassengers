@@ -66,6 +66,7 @@ class environment:
 			else if nextP[1]<self.dY:
 				if !(Tan(vectorplus(doorRP,nowp,-1))<Tan(deltaP)&&Tan(vectorplus(doorLP,nowp,-1))>Tan(deltaP)):
 					nextP[1]=self.dY
+		return nextP
 					
 
 
