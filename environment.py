@@ -28,6 +28,15 @@ class environment:
 			exit('position not correct')
 
 	def get_force(state):
+		if state==0:
+			return [ag for ag in self.a if ag.state<=1]
+		else if state==1:
+			return [ag for ag in self.a if ag.state<=2]
+		else if state==2:
+			return [ag for ag in self.a if ag.state>=1]
+		else if state==3:
+			return [ag for ag in self.a if ag.state>=2]
+
 
 	def getadjacent(position):
 
