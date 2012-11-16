@@ -26,7 +26,7 @@ class agent():
 				self.bumped = True
 
 	def force(self,agent):
-		d=distance(self,agent)
+		d=self.distance(agent)
 		if d ==0 : return
 		norm = self.e.get_coefficient() / d
 		self.f[0] += ( (self.p[0]-agent.p[0])/d ) * norm # in fact as d^-2
@@ -35,14 +35,14 @@ class agent():
 
 	def move(self) :
 		if self.bumped : return
-		map( force, self.e.get_force(self.state) ) 
+		map( self.force, self.e.get_force(self.state) ) 
 		fnorm = comp_norm(self.f[0],self.f[1])
 		if fnorm > self.t :
-			deltaX = (f[0]/fnorm) * self.v[self.state]
-			deltaY = (f[1]/fnorm) * self.v[self.state]
+			deltaX = (self.f[0]/fnorm) * self.v[self.state]
+			deltaY = (self.f[1]/fnorm) * self.v[self.state]
 		else :
-			deltaX = (f[0]/self.t) * self.v[self.state]
-			deltaY = (f[1]/self.t) * self.v[self.state]
+			deltaX = (self.f[0]/self.t) * self.v[self.state]
+			deltaY = (self.f[1]/self.t) * self.v[self.state]
 		self.p = self.e.boundary( self.p, (deltaX,deltaY),self.state )
 
 

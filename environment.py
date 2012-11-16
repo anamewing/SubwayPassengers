@@ -6,7 +6,7 @@ def vectorplus(A,B,plus):
 
 class environment:
 	"""docstring for environment"""
-	def __init__(self, bottomY,doorY,doorX,doorW,topY,carL,carR):
+	def __init__(self, bottomY,doorY,doorX,doorW,topY,carL,carR,coefficient):
 		self.bY=bottomY
 		self.dY=doorY
 		self.dX=doorX
@@ -15,6 +15,7 @@ class environment:
 		self.cL=carL
 		self.cR=carR
 		self.a=[]
+		self.coefficient=coefficient
 		
 	def where(self,position):
 		if position[1]>=self.bY:
@@ -44,7 +45,7 @@ class environment:
 		return [ag for ag in self.a if abs(ag.p[1]-position[1])<=radius]
 
 	def boundary(self,nowP,deltaP,state):
-		nextP=vectorplus(nowp,deltaP,1)
+		nextP=vectorplus(nowP,deltaP,1)
 		Tan = lambda P: P[0]/double(P[1])
 		doorLP=[self.dX-self.dW/2.0,self.dY]
 		doorRP=[self.dX+self.dW/2.0,self.dY]
@@ -52,7 +53,7 @@ class environment:
 			if nextP[1]<self.bY:
 				nextP[1]=self.bY
 			elif nextP[1]>self.dY:
-				if not(Tan(vectorplus(doorLP,nowp,-1))<Tan(deltaP)and(Tan(vectorplus(doorRP,nowp,-1))>Tan(deltaP))):
+				if not(Tan(vectorplus(doorLP,nowP,-1))<Tan(deltaP)and(Tan(vectorplus(doorRP,nowp,-1))>Tan(deltaP))):
 					nextP[1]=self.dY
 		if state>=2:
 			if nextP[0]<self.cL:
@@ -62,9 +63,12 @@ class environment:
 			if nextP[1]>self.tY:
 				nextP[1]=self.tY
 			elif nextP[1]<self.dY:
-				if not(Tan(vectorplus(doorRP,nowp,-1))<Tan(deltaP)and(Tan(vectorplus(doorLP,nowp,-1))>Tan(deltaP))):
+				if not(Tan(vectorplus(doorRP,nowP,-1))<Tan(deltaP)and(Tan(vectorplus(doorLP,nowp,-1))>Tan(deltaP))):
 					nextP[1]=self.dY
 		return nextP
+
+	def get_coefficient(self):
+		return self.coefficient
 					
 
 
