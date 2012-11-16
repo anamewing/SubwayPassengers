@@ -1,4 +1,3 @@
-import math
 
 def vectorplus(A,B,plus):
 	'''plus=1 or -1'''
@@ -42,8 +41,8 @@ class environment:
 		else if state==3:
 			return [ag for ag in self.a if ag.state>=2]
 
-	def getadjacent(self,position):
-
+	def get_adjacent(self,position,radius):
+		return [ag for ag in self.a if abs(ag.p[1]-position[1])<=radius]
 
 	def boundary(self,nowP,deltaP,state):
 		nextP=vectorplus(nowp,deltaP,1)
