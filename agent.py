@@ -19,7 +19,7 @@ class agent():
 		self.e.a.append(self)
 
 	def distance(self,agent):
-		return  comp_norm(self.p[0]-agent.p[0],self.p[1]-agent.p[1])
+		return  math.sqrt(comp_norm(self.p[0]-agent.p[0],self.p[1]-agent.p[1]))
 
 	def stateChange(self):
 		self.state = self.e.where(self.p) # where method return 0,1,2,3
@@ -33,16 +33,20 @@ class agent():
 		if self.udid == agent.udid : return
 		d=self.distance(agent)
 		norm = self.e.get_coefficient() / d
-		self.f[0] += ( (self.p[0]-agent.p[0])/d ) * norm # in fact as d^-2
+		self.f[0] += ( (self.p[0]-agent.p[0])/d ) * norm 
 		self.f[1] += ( (self.p[1]-agent.p[1])/d ) * norm
 
 	def move(self) :
+		self.f=[0.0,0.0]
 		if self.bumped : 
 			self.bumped = False
 			return
 		map( self.force, self.e.get_force(self.state) ) 
+		#print [ag.p for ag in self.e.get_force(self.state)]
 		self.doorforce()
 		fnorm = comp_norm(self.f[0],self.f[1])
+		#print fnorm
+		#print self.f
 		if fnorm > self.t :
 			deltaX = (self.f[0]/fnorm)*self.v[self.state]
 			deltaY = (self.f[1]/fnorm)*self.v[self.state]
@@ -56,7 +60,7 @@ class agent():
 		if self.state>=2:return
 		dF=self.e.get_doorforce()
 		dx=self.p[0]-self.e.dX
-		dy=self.p[1]-self.e.dY
+		dy=self.p[1]-(self.e.dY+self.e.tY)/2.0
 		doorDistance=comp_norm(dx,dy)
 		self.f[0]-=(dx)/doorDistance * dF
 		self.f[1]-=(dy)/doorDistance * dF
