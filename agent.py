@@ -43,7 +43,7 @@ class agent():
 		else :
 			deltaX = (f[0]/self.t) * self.v[self.state]
 			deltaY = (f[1]/self.t) * self.v[self.state]
-		self.p = self.e.boundary( self.p, (deltaX,deltaY) )
+		self.p = self.e.boundary( self.p, (deltaX,deltaY),self.state )
 
 
 
