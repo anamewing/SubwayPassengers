@@ -1,3 +1,4 @@
+from __future__ import division
 
 def vectorplus(A,B,plus):
 	'''plus=1 or -1'''
@@ -6,7 +7,7 @@ def vectorplus(A,B,plus):
 
 class environment:
 	"""docstring for environment"""
-	def __init__(self, bottomY,doorY,doorX,doorW,topY,carL,carR,coefficient):
+	def __init__(self, bottomY,doorY,doorX,doorW,topY,carL,carR,coefficient,doorforce):
 		self.bY=bottomY
 		self.dY=doorY
 		self.dX=doorX
@@ -15,6 +16,7 @@ class environment:
 		self.cL=carL
 		self.cR=carR
 		self.a=[]
+		self.doorforce=doorforce
 		self.coefficient=coefficient
 		
 	def where(self,position):
@@ -29,7 +31,7 @@ class environment:
 					return 2
 				elif (position[0]<=self.cL)or(position[0]>=self.cR):
 					return 3
-			exit('position not correct')
+			exit('!!!!!position not correct')
 
 	def get_force(self,state):
 		if state==0:
@@ -46,14 +48,14 @@ class environment:
 
 	def boundary(self,nowP,deltaP,state):
 		nextP=vectorplus(nowP,deltaP,1)
-		Tan = lambda P: P[0]/double(P[1])
+		Tan = lambda P: P[0]/(P[1]+1e-9)
 		doorLP=[self.dX-self.dW/2.0,self.dY]
 		doorRP=[self.dX+self.dW/2.0,self.dY]
 		if state<=1:
 			if nextP[1]<self.bY:
 				nextP[1]=self.bY
 			elif nextP[1]>self.dY:
-				if not(Tan(vectorplus(doorLP,nowP,-1))<Tan(deltaP)and(Tan(vectorplus(doorRP,nowp,-1))>Tan(deltaP))):
+				if not(Tan(vectorplus(doorLP,nowP,-1))<Tan(deltaP)and(Tan(vectorplus(doorRP,nowP,-1))>Tan(deltaP))):
 					nextP[1]=self.dY
 		if state>=2:
 			if nextP[0]<self.cL:
@@ -63,12 +65,15 @@ class environment:
 			if nextP[1]>self.tY:
 				nextP[1]=self.tY
 			elif nextP[1]<self.dY:
-				if not(Tan(vectorplus(doorRP,nowP,-1))<Tan(deltaP)and(Tan(vectorplus(doorLP,nowp,-1))>Tan(deltaP))):
+				if not(Tan(vectorplus(doorRP,nowP,-1))<Tan(deltaP)and(Tan(vectorplus(doorLP,nowP,-1))>Tan(deltaP))):
 					nextP[1]=self.dY
 		return nextP
 
 	def get_coefficient(self):
 		return self.coefficient
+
+	def get_doorforce(self):
+		return self.doorforce
 					
 
 
