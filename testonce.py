@@ -16,6 +16,8 @@ def testonce(bottomY,doorY,doorX,doorW,topY,carL,carR,coefficient,doorforce,radi
 	def notin(e):
 		return [ag.p for ag in e.a if ag.state<=1]
 
+	bumpPlace=[]
+
 	e=environment.environment(bottomY,doorY,doorX,doorW,topY,carL,carR,coefficient,doorforce)
 	bumpTimes=0
 	for k in range(20):
@@ -28,8 +30,10 @@ def testonce(bottomY,doorY,doorX,doorW,topY,carL,carR,coefficient,doorforce,radi
 		for ag in e.a:
 			ag.stateChange()
 		bumpTimes+=len([ag for ag in e.a if ag.bumped])
+		bumpPlace.append([tuple(ag.p) for ag in e.a if ag.bumped])
+		bumpPlace=list(set((sum(bumpPlace,[]))))
 		
 	#print bumpTimes
 	#print analyze(e)
 
-	return [bumpTimes,analyze(e),notin(e)]
+	return [bumpTimes,analyze(e),notin(e),bumpPlace]
