@@ -1,6 +1,7 @@
 import agent
 import environment
 import random
+import testonce
 
 bumpTimes=0
 
@@ -11,8 +12,8 @@ doorW=1
 topY=35
 carL=-5
 carR=5
-coefficient=200
-doorforce=2000
+coefficient=200*0.9**2
+doorforce=1500
 
 radius=0.02
 threshold=100
@@ -29,23 +30,9 @@ def analyze(e):
 
 #v=[30,30,5,5]
 v=[0.04,0.04,0.04,0.04]
+result=[];
 
+for threshold in range(1,200,10):
 
-
-e=environment.environment(bottomY,doorY,doorX,doorW,topY,carL,carR,coefficient,doorforce)
-
-for k in range(20):
-	a=agent.agent(radius,v,threshold,(carL+(carR-carL)*random.random()),0.4*(bottomY+(topY-bottomY)*random.random()),e,k)
-
-
-report(e)
-
-for i in xrange(2000):
-	for ag in e.a:
-		ag.move()
-	for ag in e.a:
-		ag.stateChange()
-	bumpTimes+=len([ag for ag in e.a if ag.bumped])
-	print i
-	if i%10==0:report(e)
-print bumpTimes
+	result=(testonce.testonce(bottomY,doorY,doorX,doorW,topY,carL,carR,coefficient,doorforce,radius,v,threshold))
+	print [threshold,result]

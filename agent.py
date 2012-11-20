@@ -27,7 +27,8 @@ class agent():
 		for a in adjacent:
 			if self.udid == a.udid : continue
 			if self.distance(a) < 2*self.r:
-				self.bumped = True
+				if (self.state-1.5)*(a.state-1.5)>0:
+					self.bumped = True
 
 	def force(self,agent):
 		if self.udid == agent.udid : return
