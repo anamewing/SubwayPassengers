@@ -2,25 +2,50 @@ import agent
 import environment
 import random
 
+bumpTimes=0
+
+bottomY=0
+doorY=30
+doorX=0
+doorW=1
+topY=35
+carL=-5
+carR=5
+coefficient=200
+doorforce=2000
+
+radius=0.02
+threshold=100
+
+
 def report(e):
 	for ag in e.a:
 		print str(ag.udid)+str(ag.p)+str(ag.state)+str(ag.bumped)
 	print '------'
 
-v=[30,30,5,5]
+def analyze(e):
+	return len([ag for ag in e.a if ag.p[1]>doorY])
 
-e=environment.environment(0,100,0,10,130,-30,30,100,2000)
 
-for k in range(1,20):
-	a=agent.agent(0.2,v,10,-30+60*random.random(),40*random.random(),e,k)
+#v=[30,30,5,5]
+v=[0.04,0.04,0.04,0.04]
+
+
+
+e=environment.environment(bottomY,doorY,doorX,doorW,topY,carL,carR,coefficient,doorforce)
+
+for k in range(20):
+	a=agent.agent(radius,v,threshold,(carL+(carR-carL)*random.random()),0.4*(bottomY+(topY-bottomY)*random.random()),e,k)
 
 
 report(e)
 
-for i in xrange(1,200):
+for i in xrange(2000):
 	for ag in e.a:
 		ag.move()
 	for ag in e.a:
 		ag.stateChange()
+	bumpTimes+=len([ag for ag in e.a if ag.bumped])
 	print i
-	report(e)
+	if i%10==0:report(e)
+print bumpTimes

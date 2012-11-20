@@ -25,7 +25,7 @@ class agent():
 		self.state = self.e.where(self.p) # where method return 0,1,2,3
 		adjacent = self.e.get_adjacent(self.p,self.r) # get_adjacent method return a list of agent
 		for a in adjacent:
-			if self.udid == a.udid : return
+			if self.udid == a.udid : continue
 			if self.distance(a) < 2*self.r:
 				self.bumped = True
 
@@ -36,7 +36,7 @@ class agent():
 			self.p[0]+=1e-8*random.random()
 			self.p[1]+=1e-8*random.random()
 			d=self.distance(agent)
-		norm = self.e.get_coefficient() / d
+		norm = self.e.get_coefficient() / d**2
 		self.f[0] += ( (self.p[0]-agent.p[0])/d ) * norm 
 		self.f[1] += ( (self.p[1]-agent.p[1])/d ) * norm
 
@@ -61,7 +61,7 @@ class agent():
 		#self.stateChange()
 
 	def doorforce(self):
-		if self.state>=2:return
+		#if self.state>=2:return
 		dF=self.e.get_doorforce()
 		dx=self.p[0]-self.e.dX
 		dy=self.p[1]-(self.e.dY+self.e.tY)/2.0
