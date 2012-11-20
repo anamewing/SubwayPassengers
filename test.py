@@ -18,6 +18,8 @@ doorforce=1500
 radius=0.02
 threshold=100
 
+velocity=0.04
+
 
 def report(e):
 	for ag in e.a:
@@ -29,7 +31,7 @@ def analyze(e):
 
 
 #v=[30,30,5,5]
-v=[0.04,0.04,0.04,0.04]
+v=[velocity,velocity,velocity/4,velocity/4,velocity/8]
 result=[];
 
 for threshold in range(1,200,10):
