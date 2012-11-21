@@ -5,6 +5,8 @@ import testonce
 
 bumpTimes=0
 
+agentCount=50
+
 bottomY=0
 doorY=30
 doorX=0
@@ -34,7 +36,7 @@ def analyze(e):
 v=[velocity,velocity,velocity/4,velocity/4,velocity/8]
 result=[];
 
-for threshold in range(1,200,10):
+for threshold in [80]:
 
-	result=(testonce.testonce(bottomY,doorY,doorX,doorW,topY,carL,carR,coefficient,doorforce,radius,v,threshold))
+	result=(testonce.testonce(bottomY,doorY,doorX,doorW,topY,carL,carR,coefficient,doorforce,radius,v,threshold,agentCount))
 	print [threshold,result]

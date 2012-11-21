@@ -9,7 +9,7 @@ def report(e):
 
 
 
-def testonce(bottomY,doorY,doorX,doorW,topY,carL,carR,coefficient,doorforce,radius,v,threshold):
+def testonce(bottomY,doorY,doorX,doorW,topY,carL,carR,coefficient,doorforce,radius,v,threshold,agentCount):
 	def analyze(e):
 		return len([ag for ag in e.a if ag.p[1]>doorY])
 
@@ -18,7 +18,7 @@ def testonce(bottomY,doorY,doorX,doorW,topY,carL,carR,coefficient,doorforce,radi
 
 	e=environment.environment(bottomY,doorY,doorX,doorW,topY,carL,carR,coefficient,doorforce)
 	bumpTimes=0
-	for k in range(20):
+	for k in range(agentCount):
 		a=agent.agent(radius,v,threshold,(carL+(carR-carL)*random.random()),0.4*(bottomY+(topY-bottomY)*random.random()),e,k)
 	
 	
