@@ -5,7 +5,7 @@ import testonce
 
 bumpTimes=0
 
-agentCount=50
+agentCount=20
 
 bottomY=0
 doorY=30
