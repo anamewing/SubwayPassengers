@@ -17,6 +17,8 @@ class agent():
 		self.e = environ
 		self.udid = udid
 		self.e.a.append(self)
+		self.dF=self.e.get_doorforce()
+		self.coefficient=self.e.get_coefficient()
 
 	def distance(self,agent):
 		return  math.sqrt(comp_norm(self.p[0]-agent.p[0],self.p[1]-agent.p[1]))
@@ -37,7 +39,7 @@ class agent():
 			self.p[0]+=1e-8*random.random()
 			self.p[1]+=1e-8*random.random()
 			d=self.distance(agent)
-		norm = self.e.get_coefficient() * (-1 / d**2 + 1 / d**3)
+		norm = self.coefficient * (-1 / d**2 + 1 / d**3)
 		self.f[0] += ( (self.p[0]-agent.p[0])/d ) * norm 
 		self.f[1] += ( (self.p[1]-agent.p[1])/d ) * norm
 
@@ -63,12 +65,12 @@ class agent():
 
 	def doorforce(self):
 		#if self.state>=2:return
-		dF=self.e.get_doorforce()
+		
 		dx=self.p[0]-self.e.dX
 		dy=self.p[1]-(self.e.dY+self.e.tY)/2.0
 		doorDistance=comp_norm(dx,dy)
-		self.f[0]-=(dx)/doorDistance * dF
-		self.f[1]-=(dy)/doorDistance * dF
+		self.f[0]-=(dx)/doorDistance * self.dF
+		self.f[1]-=(dy)/doorDistance * self.dF
 
 
 
