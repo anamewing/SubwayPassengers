@@ -3,9 +3,11 @@ import environment
 import random
 import testonce
 
+#import logging
+
 bumpTimes=0
 
-agentCount=20
+agentCount=100
 
 bottomY=0
 doorY=30
@@ -17,7 +19,7 @@ carR=5
 coefficient=200*0.9**2
 doorforce=1500
 
-radius=0.02
+radius=0.1
 threshold=100
 
 velocity=0.04

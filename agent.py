@@ -37,7 +37,7 @@ class agent():
 			self.p[0]+=1e-8*random.random()
 			self.p[1]+=1e-8*random.random()
 			d=self.distance(agent)
-		norm = self.e.get_coefficient() * (1 / d**2 - 1 / d**3)
+		norm = self.e.get_coefficient() * (-1 / d**2 + 1 / d**3)
 		self.f[0] += ( (self.p[0]-agent.p[0])/d ) * norm 
 		self.f[1] += ( (self.p[1]-agent.p[1])/d ) * norm
 
