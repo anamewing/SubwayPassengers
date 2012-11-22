@@ -54,12 +54,10 @@ class agent():
 		fnorm = comp_norm(self.f[0],self.f[1])
 		#print fnorm
 		#print self.f
-		if fnorm > self.t :
-			deltaX = (self.f[0]/fnorm)*self.v[self.state]
-			deltaY = (self.f[1]/fnorm)*self.v[self.state]
-		else :
-			deltaX = (self.f[0]/self.t)*self.v[self.state]
-			deltaY = (self.f[1]/self.t)*self.v[self.state]
+		
+		deltaX = (self.f[0]/self.t)*self.v[self.state]
+		deltaY = (self.f[1]/self.t)*self.v[self.state]
+		
 		self.p = self.e.boundary( self.p, (deltaX,deltaY),self.state )
 		#self.stateChange()
 
