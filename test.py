@@ -17,7 +17,7 @@ topY=35
 carL=-5
 carR=5
 coefficient=200*0.9**2
-doorforce=1500
+doorforce=coefficient/(0.25**2)
 
 radius=0.1
 threshold=80
