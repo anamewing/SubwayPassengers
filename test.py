@@ -38,7 +38,7 @@ def analyze(e):
 v=[velocity,velocity,velocity/4,velocity/4,velocity/8]
 result=[];
 
-for i in range(20):
-
-	result=(testonce.testonce(bottomY,doorY,doorX,doorW,topY,carL,carR,coefficient,doorforce,radius,v,threshold,agentCount))
-	print [i,result]
+for threshold in [i*coefficient for i in range(1,21)]:
+	for i in range(3):
+		result=(testonce.testonce(bottomY,doorY,doorX,doorW,topY,carL,carR,coefficient,doorforce,radius,v,threshold,agentCount))
+		print [threshold,i,result]
