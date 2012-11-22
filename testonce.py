@@ -19,7 +19,7 @@ def testonce(bottomY,doorY,doorX,doorW,topY,carL,carR,coefficient,doorforce,radi
 	e=environment.environment(bottomY,doorY,doorX,doorW,topY,carL,carR,coefficient,doorforce)
 	bumpTimes=0
 	for k in range(agentCount):
-		a=agent.agent(radius,v,threshold,(carL+(carR-carL)*random.random()),0.4*(bottomY+(topY-bottomY)*random.random()),e,k)
+		a=agent.agent(radius,v,threshold,(carL+(carR-carL)*random.random()),bottomY+0.4*((topY-bottomY)*random.random()),e,k)
 	
 	
 	for i in xrange(2000):
