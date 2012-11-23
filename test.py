@@ -1,3 +1,4 @@
+from __future__ import division
 import agent
 import environment
 import random
@@ -8,6 +9,8 @@ import testonce
 bumpTimes=0
 
 agentCount=20
+
+TryTimes=10
 
 bottomY=0
 doorY=30
@@ -36,11 +39,27 @@ def analyze(e):
 
 #v=[30,30,5,5]
 v=[velocity,velocity,velocity/4,velocity/4,velocity/8]
-result=[];
+result=[]
+
+f1=open('result.txt','w')
+f2=open('recordall.txt','w')
+writefile=lambda fh,s:fh.write(str(s)+'\n')
 
 for threshold in [80]:
 	for coefficient in [i*20 for i in range(1,16)]:
 		for doorforce in [coefficient*(i) for i in [1,2,4,6,8]]:
-			for i in range(3):
+			recordall=[]
+			for i in range(TryTimes):
 				result=(testonce.testonce(bottomY,doorY,doorX,doorW,topY,carL,carR,coefficient,doorforce,radius,v,threshold,agentCount))
-				print [threshold,coefficient,doorforce,i,result]
+				record=[threshold,coefficient,doorforce,i,result]
+				recordall.append(result)
+				writefile(f1,record)
+				f1.flush()
+				print record
+			ave=[sum([re[0] for re in recordall])/TryTimes,sum([re[1] for re in recordall])/TryTimes]
+			writefile(f2,[threshold,coefficient,doorforce,ave])
+			f2.flush()
+
+
+f1.close()
+f2.close()
