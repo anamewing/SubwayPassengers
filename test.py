@@ -40,7 +40,7 @@ result=[];
 
 for threshold in [80]:
 	for coefficient in [i*20 for i in range(1,16)]:
-		for doorforce in [coefficient*(i)/2.0 for i in range(16,21)]:
+		for doorforce in [coefficient*(i) for i in [1,2,4,6,8]]:
 			for i in range(3):
 				result=(testonce.testonce(bottomY,doorY,doorX,doorW,topY,carL,carR,coefficient,doorforce,radius,v,threshold,agentCount))
 				print [threshold,coefficient,doorforce,i,result]
